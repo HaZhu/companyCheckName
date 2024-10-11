@@ -87,14 +87,14 @@ export default class ScoreToCoupon extends Component {
                 >
                   <View className='flex-box benefits_item_top'>
                     <View className='flex_center'>
-                      <View className='benefits_title'>{ items.orderAmount}元{items.namingNum}次</View>
+                      <View className='benefits_title'>{Number(items.orderAmount / 100).toFixed(2)}元{items.namingNum}次</View>
                       <View className='benefits_short_title'>订单号：{items.orderNo}</View>
                       <View className='benefits_short_title'>支付时间：{dayjs(items.payTime).format('YYYY-MM-DD hh:mm:ss')}</View>
                     </View>
                   </View>
                   <View className='button'>
                     <Image mode="aspectFill" className='img' src={IMG11}></Image>
-                    <View className='money'>{items.orderAmount}元</View>
+                    <View className='money'>{Number(items.orderAmount / 100).toFixed(2)}元</View>
                   </View>
                 </View>
               );

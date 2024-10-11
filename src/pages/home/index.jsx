@@ -31,7 +31,7 @@ const Home = () => {
     "birthTime": "",
     "sex": "",
     "companyNameNum": null,
-    "nickName": "",
+    // "nickName": "",
     "favoriteWord": ""
   })
   const  companyType = [
@@ -144,7 +144,7 @@ const Home = () => {
         "companyNameNum": form.companyNameNum,
         "favoriteWord": form.favoriteWord,
         "fiveElement": form.fiveElement,
-        "nickName": form.nickName,
+        // "nickName": form.nickName,
         "sex": form.sex == '女' ? 2 : 1
       })
       setShowLoading(true)
@@ -438,7 +438,7 @@ const Home = () => {
                   />
                   <View className='iconfont iconduanjiantou-xia'></View>
                 </View> */}
-                <View className="inputView">
+                {/* <View className="inputView">
                   <Input
                     className='input'
                     value={form.nickName}
@@ -448,7 +448,8 @@ const Home = () => {
                       handleChangeFormData(e.detail.value, 'nickName');
                     }}
                   />
-                </View> </>
+                </View> */}
+               </>
                 }
               </View>
         {
