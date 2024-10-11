@@ -1,0 +1,92 @@
+@keyframes scales {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.base_alert_wrap {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  z-index: 9999999;
+  background: rgba(0, 0, 0, 0.6);
+  .hide_block {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+  }
+  .get_wrap{
+    width: 592px;
+    padding: 48px;
+    box-sizing: border-box;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -296px;
+    margin-top: -248px;
+    animation: scales 0.2s forwards;
+    z-index: 99;
+    align-items: center;
+    .iconfont{
+      font-size: 144px;
+    }
+    .black_title{
+      font-size: 38px;
+      font-weight: bold;
+      line-height: 52px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .gray_title{
+      font-size: 30px;
+      line-height: 44px;
+      padding: 0 30px;
+      text-align: center;
+      margin-top: 24px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+    .get_button_one{
+      width: 100%;
+      height:  96px;
+      line-height: 96px;
+      background: #000;
+      text-align: center;  
+      font-size: 30px;
+      color: #fff;
+      margin-top: 48px;
+    }
+    .get_button_wrap{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 48px;
+      .get_button{
+        width: 236px;
+        height:   92px;
+        line-height: 92px;
+        background: #000;
+        text-align: center;  
+        font-size: 30px;
+        font-weight: bold;
+        color: #fff;
+      }
+      .get_button_green{
+        background: rgba(167, 252, 78, 1);
+        color: rgba(0, 0, 0, 0.9);
+      }
+    }
+    
+  }
+}

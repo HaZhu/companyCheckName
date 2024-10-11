@@ -1,0 +1,41 @@
+.g-switch {
+  display: flex;
+  align-items: center;
+  width: 112px;
+  height: 52px;
+  border: 2px solid #a6aaae;
+  border-radius: 26px;
+  position: relative;
+
+  .switch_checked {
+    width: 40px;
+    height: 40px;
+    background: #a6aaae;
+    border-radius: 50%;
+    position: absolute;
+    left: 6px;
+    top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    .iconfont {
+      font-size: 46px;
+      opacity: 0;
+      color: #a6aaae;
+    }
+  }
+  &.checked {
+    border-color: #232529;
+    .switch_checked {
+      transform: translateX(60px);
+      background: none;
+      transition: all 0.3s;
+      .iconfont {
+        font-size: 46px;
+        opacity: 1;
+        color: #232529;
+      }
+    }
+  }
+}

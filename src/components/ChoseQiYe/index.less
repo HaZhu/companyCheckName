@@ -1,0 +1,256 @@
+
+
+.wrap_page{
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.calendar_wrap {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  .input{
+    border: 1px solid #000000;
+    margin-top: 30px;
+  }
+  .close{
+    position: absolute;
+    right: 30px;
+    z-index: 9999;
+    font-size: 36px !important;
+    color: #000000 !important;
+    top: 30px;
+  }
+  .calendar_bottom {
+    height: 144px;
+    background: #ffffff;
+    box-shadow: 0px 1px 0px 0px rgba(232, 235, 238, 1);
+    padding: 0px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .calendar_cannal_btn {
+    height: 78px;
+    line-height: 78px;
+    text-align: center;
+    border: 2px solid #232529;
+    border-radius: 2px;
+    font-size: 30px;
+    font-weight: bold;
+    width: 192px;
+    color: rgba(0, 0, 0, 0.9);
+
+    &.disable {
+      border: 2px solid #d5d9dc;
+      color: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .calendar_submit {
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    background: #F6B959;
+    border-radius: 2px;
+    font-size: 30px;
+    font-weight: bold;
+    width: 100%;
+    color: #ffffff;
+
+    &.disable {
+      border: 2px solid #d5d9dc;
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+.calendar_container {
+  flex: 1;
+  height: 0;
+  padding: 40px;
+
+  .calendar_item {
+    margin-bottom: 50px;
+  }
+
+  .row_month {
+    height: 48px;
+    line-height: 48px;
+    padding: 0 40px;
+    font-size: 34px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.9);
+    margin: 24px 0;
+  }
+
+  .weeks {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    line-height: 64px;
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 40px;
+
+    .week {
+      width: 54px;
+      text-align: center;
+    }
+  }
+
+  .row_date {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    margin-bottom: 54px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    font-size: 30px;
+    color: #000000;
+    line-height: 42px;
+    position: relative;
+    font-weight: bold;
+
+    .date_text {
+      position: relative;
+      z-index: 1;
+    }
+
+    &.disable {
+      color: #c3c6ca;
+    }
+
+    &.active {
+      color: #fff;
+
+      // &::before {
+      //   content: '';
+      //   width: 8px;
+      //   height: 8px;
+      //   background: #fff;
+      //   position: absolute;
+      //   left: 50%;
+      //   transform: translateX(-50%);
+      //   bottom: -9px;
+      //   border-radius: 50%;
+      //   z-index: 1;
+      // }
+      &::after {
+        content: '';
+        width: 80px;
+        height: 80px;
+        background: #303237;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+.menu{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*一级菜单*/
+.menu .dt {
+  font-size: 30px;
+  width: 33%;
+  height: 76px;
+  border-right: 2px solid #d2d2d2;
+  border-bottom: 2px solid #d2d2d2;
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #5a5a5a;
+  line-height: 76px;
+}
+
+/*二级菜单外部容器样式*/
+.menu .dd {
+  position: absolute;
+  width: 98%;
+  z-index: 999;
+}
+
+/*二级菜单普通样式*/
+.menu .li {
+  font-size: 28px;
+  line-height: 56px;
+  color: #7e8388;
+  height: 56px;
+  background-color: #f7f7f9;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  width: 200px;
+  box-sizing: border-box;
+  border-radius: 32px;
+  margin: 24px 8px;
+  &.active{
+    background: #F6B959;
+    color: #fff;
+  }
+}
+
+/* .menu ul{border-bottom: 10rpx solid red;} */
+.memu2_tit01 {
+  display: flex;
+  width: 98%;
+  color: #555;
+  margin-top: 12px;
+  margin-right: 16px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 52px;
+}
+.memu2_tit02{
+  width: 98%;
+  color: #555;
+  margin-top: 12px;
+  margin-right: 16px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 52px;
+  .lable{
+    text-align: left;
+  }
+}
+
+
+.body-view {
+  z-index: 1001;
+  height: 1150px;
+  border-top: 2px solid #f7f7f9;
+}

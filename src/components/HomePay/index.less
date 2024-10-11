@@ -1,0 +1,97 @@
+.guide_wrap {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.8);
+  bottom: 0;
+  left: 0;
+  z-index: 9999999;
+  .swiper_box {
+    height: 1078px !important;
+    width: 680px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 9;
+    .banner_img {
+       width: 100%;
+       height: 100%;
+    }
+    .payChose{
+      width: 100%;
+      height: 838px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .pay_item_btn{
+        width: 520rpx;
+        height: 96rpx;
+        font-weight: bold;
+        background: #F6B959;
+        border-radius: 16rpx 16rpx 16rpx 16rpx;
+        font-size: 32rpx;
+        color: #352C25;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 58px;
+        left: 80px;
+      }
+      .pay_item{
+        height: 96px;
+        width: 520px;
+        display: flex;
+        justify-content: space-between;
+        background: url("../../imgs/10.png") no-repeat;
+        background-size: 100% 100%;
+        margin-top: 60px;
+        &.active{
+         background: url("../../imgs/13.png") no-repeat;
+         background-size: 100% 100%;
+        }
+        &_lf{
+          width: 200px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 40rpx;
+          color: #FFBB52;
+        }
+        &_rt{
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 36rpx;
+          color: #352C25;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .closeWrap{
+    position: fixed;
+    left: 50%;
+    top: calc(50% + 500px);
+    transform: translateX(-50%) translateY(-50%);
+    width: 80px;
+    height: 80px;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 99;
+    .iconfont{
+      color: #fff;
+      font-size: 40px;
+    }
+  }
+}

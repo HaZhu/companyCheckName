@@ -1,0 +1,81 @@
+@keyframes slide {
+  0% {
+    transform: translateY(60%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.check_container {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  z-index: 9999999;
+  background: rgba(0, 0, 0, 0.6);
+  .hide_block {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+  }
+  .company_container_box {
+    height: 636px;
+    width: 100%;
+    position: absolute;
+    padding: 40px;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    z-index: 99;
+    text-align: center;
+    transform: translateY(100%);
+    animation: slide 0.2s forwards;
+    .title {
+      font-size: 38px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .face {
+      width: 96px;
+      height: 96px;
+    }
+    .content {
+      font-size: 26px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+    .flex_right {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 60px;
+      .iconfont {
+        font-size: 48px;
+      }
+    }
+    .btn {
+      height: 96px;
+      display: flex;
+      width: calc(100% - 80px);
+      align-items: center;
+      justify-content: center;
+      background: rgba(35, 37, 41, 1);
+      color: #fff;
+      font-size: 34px;
+      position: absolute;
+      bottom: 68px;
+      left: 40px;
+      font-weight: bold;
+    }
+    .line {
+      height: 1px;
+      width: 100%;
+      background: #d5d9dc;
+      position: absolute;
+      bottom: 232px;
+      left: 0px;
+    }
+  }
+}

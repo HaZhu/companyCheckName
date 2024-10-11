@@ -1,0 +1,233 @@
+.home_page {
+  background-color: #1D1D1D;
+  .logos_wrap {
+    display: flex;
+    align-items: center;
+    box-sizing: content-box;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    padding-left: 40px;
+  }
+  .swiper_box {
+    height: 320px;
+    .banner_img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .lottie {
+    height:  60vw;
+    width: 60vw;
+  }
+  .covering_wrap{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    display: none;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    .wait_text{
+      font-size: 28px;
+      color: #fff;
+      margin-top: 20px;
+    }
+  }
+  .show{
+    display: flex !important;
+  }
+  .pay_wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .inputView{
+      width: 48%;
+    }
+    .pickerInputView{
+      width: 48%;
+      .inputView{
+        width: 100%;
+      }
+    }
+  }
+  .page__bd_wrap{
+    padding: 0 32px 40px;
+    background: @bg1;
+  }
+  .page__bd {
+    background: #352C25;
+    border-top-right-radius: 32px;
+    border-top-left-radius: 32px;
+    overflow: hidden;
+  }
+  .page__bd_btm{
+    padding:  0 40px 40px;
+  }
+  .page__title {
+    margin-left: 40px;
+    font-size: 44px;
+  }
+
+
+  .item_box{
+      width: 398rpx;
+      height: 80rpx;
+      border-radius: 40rpx 40rpx 40rpx 40rpx;
+      border: 2rpx solid #919090;
+      margin: 40px auto 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .text-wrapper_1{
+        width: 196rpx;
+        height: 76rpx;
+        border-radius: 40rpx 40rpx 40rpx 40rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        &.active{
+          color: #352C25;
+          background: #F6B959;
+          font-weight: bold;
+        }
+      }
+  }
+
+  .location {
+    margin-right: 64px;
+    font-size: 44px;
+  }
+
+  .weui-cells:before {
+    border-top: 0px solid #d9d9d9;
+  }
+  .calendar_popup {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 856px;
+    box-shadow: 0px 16px 32px rgba(45, 46, 51, 0.14);
+    background: #fff;
+    bottom: 0;
+    z-index: 99999999999999;
+  }
+  .weui-media-box:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    border-top: 0px solid #e5e5e5;
+    color: #e5e5e5;
+    left: 30px;
+  }
+
+  .weui-media-box__desc2 {
+    color: #999;
+    font-size: 26px;
+    line-height: 1.2;
+    display: block;
+  }
+
+  button[type="primary"] {
+    color: #fff;
+    background-color: #F6B959;
+  }
+
+  #picker1 {
+    display: block;
+    float: right;
+    margin-top: -60px;
+  }
+
+  #picker3 {
+    width: 100%;
+  }
+  .iconfont{
+    font-size: 40px;
+  }
+  .weui-btn{
+    font-weight: bold;
+    font-size: 32px;
+    height: 96px;
+    line-height: 96px;
+  }
+  .picker{
+    margin: 40px 0;
+    display: flex;
+    font-size: 28px;
+    justify-content:space-between;
+    align-items: center;
+  }
+
+  .input {
+    height: 100px;
+    font-size: 28px;
+    flex: 1;
+  }
+
+  .inputView {
+    height: 96rpx;
+    border-radius: 16rpx 16rpx 16rpx 16rpx;
+    border: 2rpx solid #F6B959;
+    padding: 0 32px 0 48px   ;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 48px;
+    font-size: 32px;
+    box-sizing: border-box;
+  }
+  .weui-media-box__title{
+    font-size: 32px;
+    margin: 40px 0 20px 0;
+  }
+  .weui-media-box__desc2{
+    font-size: 26px;
+    line-height: 40px;
+  }
+  .agreement {
+    width: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    .xieyi {
+      color: #fff;
+    }
+  }
+  .agree_icon{
+    font-size: 32px !important;
+    margin-right: 10px;
+  }
+  .iconduanjiantou-xia{
+    color: @t2;
+    font-size: 32px;
+  }
+  .kefu_wrap{
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    z-index: 999;
+    width: 284px;
+    height: 76px;
+    .kefu_img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

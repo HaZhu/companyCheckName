@@ -1,0 +1,137 @@
+.mine_wrap {
+  .mine_container {
+    padding: 32px 40px 54px;
+    background-color: @bg1;
+    color: #fff;
+    min-height: 100vh;
+    view,
+    scroll-view {
+      box-sizing: content-box;
+    }
+    .user_info {
+      position: relative;
+      margin-top: 32px;
+      padding: 0 48px;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient( 222deg, #79502F 0%, #674B35 100%);
+      border-radius: 32rpx 32rpx 32rpx 32rpx;
+      border: 2rpx solid #F6B959;
+      box-sizing: border-box;
+      .imgs_lf{
+        width: 120px;
+        height: 120px;
+        margin-right: 32px;
+      }
+      .imgs_rt{
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        .user_info_title{
+          margin-bottom: 10px;
+          font-weight: bold;
+          font-size: 32px;
+        }
+        .user_name{
+          font-size: 28px;
+        }
+      }
+    }
+    .menus {
+      margin-top: 46px;
+
+      .menu {
+        height: 128px;
+        line-height: 128px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: normal;
+      }
+
+      .menu_left {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        .icon {
+          font-size: 48px;
+          width: 48px;
+          height: 48px;
+          margin-right: 24px;
+        }
+      }
+
+      .menu_right {
+        font-size: 32px;
+        display: flex;
+        align-items: center;
+        .countNum{
+          font-weight: bold;
+          font-size: 32rpx;
+          color: #F6B959;
+        }
+        .arrow {
+          font-size: 32px;
+          color: #fff;
+        }
+      }
+    }
+  }
+  .lix_coupon_wrap {
+    display: flex;
+    justify-content: space-between;
+    .margin_box{
+      margin: 0 16px;
+    }
+    .lix_coupon_box {
+      width: 324px;
+      height: 144px;
+      padding: 28px 32px;
+      background: #fff;
+      box-sizing: border-box;
+      .lix_coupon_box_top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 26px;
+        .icon {
+          font-size: 40px;
+        }
+      }
+      .num {
+        font-weight: bold;
+        font-size: 38px;
+      }
+    }
+  }
+  .tel_wrap{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 64px;
+  }
+  .tel_box{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 30px;
+    .tel_icon{
+      font-size: 40px;
+      margin-right: 10px;
+    }
+    
+  }
+  .service_time{
+    text-align: center;
+    margin-top: 24px;
+    color: #fff;
+    font-size: 24px;
+  }
+}

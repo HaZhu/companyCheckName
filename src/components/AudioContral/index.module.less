@@ -1,0 +1,114 @@
+.section_3 {
+  background-color: #232428;
+  display: flex;
+  width: calc(100vw - 64px);
+  height: 112px;
+  display: flex;
+  box-shadow: 0px 16px 32px rgba(45, 46, 51, 0.14);
+  .group_8 {
+    padding: 24px 18px;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+
+    .text_4 {
+      color: #fffffff2;
+      font-size: 26px;
+      line-height: 36px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .text_5 {
+      font-size: 22px;
+      line-height: 32px;
+      color: #ffffff66;
+    }
+    .pos_4 {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+    .progress {
+      height: 100%;
+      width: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.3) 100%);
+      .progress_bar {
+        position: absolute;
+        height: 100%;
+        right: -20px;
+        width: 40px;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9;
+        .bars {
+          width: 6px;
+          background: #fff;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          z-index: 99;
+          left: 20px;
+        }
+      }
+    }
+  }
+  .flex_time {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 32px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .image-wrapper {
+    width: 112px;
+    height: 112px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: solid 1px #a6aaae;
+    .image_6 {
+      font-size: 48px;
+      color: #fff;
+    }
+  }
+  .image-wrapper_2 {
+    width: 112px;
+    height: 112px;
+    border-left: solid 1px #a6aaae;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .image_7 {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+.pos_3 {
+  position: fixed;
+  bottom: 68px;
+  left: 50%;
+  transform: translateX(-50%) translateY(200px);
+}
+.show {
+  animation: contralAnimate 0.4s forwards;
+}
+@keyframes contralAnimate {
+  from {
+    transform: translateX(-50%) translateY(200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}

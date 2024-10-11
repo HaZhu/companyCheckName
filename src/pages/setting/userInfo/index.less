@@ -1,0 +1,210 @@
+.user_info_container {
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  .container_top_wrap {
+    position: relative;
+    height: 552px;
+    background: #e8ebee;
+  }
+  .wrap_title {
+    position: absolute;
+    width: 412px;
+    height: 136px;
+    left: 0px;
+    bottom: 0px;
+    background: #bcfb69;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 58px;
+    padding-left: 20px;
+    display: flex;
+    z-index: 99999;
+    align-items: center;
+  }
+  .form {
+    padding: 48px 48px 0;
+    .form_item {
+      border: 1px solid #d5d9dc;
+      height: 126px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .label {
+      width: 152px;
+      margin-right: 32px;
+      font-size: 30px;
+      color: #232529;
+      font-weight: 400;
+      padding-left: 24px;
+    }
+    .form_item_picker {
+      flex: 1;
+      display: block;
+    }
+    .ipt {
+      flex: 1;
+      font-size: 30px;
+      color: #232529;
+    }
+  }
+  .check_wrap_title {
+    height: 36px;
+    padding: 0 48px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 36px;
+    margin-top: 64px;
+    &_flex {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      margin-bottom: 24px;
+    }
+    .icona-48pt-jinggao-miaobian {
+      font-size: 32px;
+      margin-right: 8px;
+    }
+  }
+  .check_wrap_new {
+    padding: 0 48px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .check_item_new {
+      width: 310px;
+      height: 84px;
+      font-weight: 400;
+      font-size: 26px;
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #a6aaae;
+      color: rgba(0, 0, 0, 0.9);
+      &.active {
+        border: 2px solid #232529;
+        font-weight: bold;
+      }
+    }
+  }
+  .check_wrap {
+    padding: 0 48px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .check_item {
+      width: 196px;
+      height: 84px;
+      font-weight: 400;
+      font-size: 26px;
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #a6aaae;
+      color: rgba(0, 0, 0, 0.9);
+      &.active {
+        border: 2px solid #232529;
+        font-weight: bold;
+      }
+    }
+  }
+  .footer_block {
+    height: 232px;
+    background: #fff;
+  }
+  .footer_wrap {
+    position: fixed;
+    background: #fff;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 232px;
+    z-index: 99;
+    padding: 0 48px;
+    .group_line {
+      padding: 32px 0;
+      display: flex;
+      justify-content: space-between;
+      .line {
+        width: 150px;
+        background-color: #d5d9dc;
+        height: 4px;
+        &.active {
+          background-color: #232428;
+        }
+      }
+    }
+    .button_box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .pre_button {
+        height: 96px;
+        width: 96px;
+        color: #232529;
+        margin-right: 32px;
+        border: 1px solid #696d74;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &.dis_none {
+          display: none;
+        }
+        .iconzuo {
+          position: relative;
+          left: 0;
+        }
+      }
+      .next_button {
+        height: 96px;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #232428;
+        color: #fffffff2;
+        &.disabled {
+          background: #d5d9dc;
+        }
+      }
+    }
+  }
+  .mt24 {
+    margin-top: 24px;
+  }
+  .mt16 {
+    margin-top: 16px;
+  }
+  .show {
+    display: block;
+  }
+  .hide {
+    display: none;
+  }
+  .other_title {
+    margin-top: 64px;
+  }
+  .weightFont {
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 48px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.9);
+  }
+  .canvas_wrap,
+  .lottie {
+    height: 552px;
+    width: 100vw;
+  }
+  .canvas_wrap {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
+}

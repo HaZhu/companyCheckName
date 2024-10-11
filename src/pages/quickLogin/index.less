@@ -1,0 +1,52 @@
+.mine_wrap_unlogin {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: #fff;
+  .agree_icon {
+    font-size: 36px;
+    margin-right: 10px;
+  }
+  .over_wrap {
+    width: 100%;
+    height: 800px;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.0001) 0%, #ffffff 18.15%);
+    .login_btn {
+      margin-top: 180px;
+      width: 670px;
+      height: 96px;
+      line-height: 96px;
+      background: #232428;
+      color: #fff;
+      border-radius: 0;
+      font-size: 32px;
+    }
+    .phone_login {
+      font-size: 30px;
+      margin-top: 48px;
+      text-align: center;
+    }
+  }
+  .agreement {
+    width: 100%;
+    position: absolute;
+    bottom: 48px;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: @t2;
+    .xieyi {
+      color: @t1;
+    }
+  }
+}
