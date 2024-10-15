@@ -58,6 +58,8 @@ const Home = () => {
   const [popType,setPopType] = useState('')
   const [showPay,setShowPay] = useState(false)
   const [banners,setBanners] = useState([])
+  const [showTab,setShowTab] = useState(true)
+
 
 
 
@@ -95,6 +97,9 @@ const Home = () => {
                getMobileCode: code,
                miniAppLoginCode: res.code
             }).then((result) => {
+              if(result.hideTab){
+                setShowTab(false)
+              }
               if(result.data && result.data && result.data.token){
                 setGlobalData('token', result.data.token);
                 setGlobalData('userName', result.data.userNick);
@@ -118,7 +123,7 @@ const Home = () => {
       showToast('城市、行业类型、公司类型三个必填')
       return
     }
-    if(payTab == 1){
+    if(payTab == 1 || !showTab){
 
      const res = await  nameDesign({
         "cityName": form.cityName,
@@ -195,11 +200,16 @@ const Home = () => {
             mode: 'cors',
             method: 'GET'
           }).then( async (result) => {
+              if(result.data.data && result.data.data.hideTab){
+                setShowTab(false)
+              }
              if(result.data.data && result.data.data.token){
               setGlobalData('token', result.data.data.token);
               setGlobalData('userName', result.data.data.userNick);
               setHasphone(true)
               getNum()
+             }else{
+              setHasphone(false)
              }
           });
         } else {
@@ -265,13 +275,13 @@ const Home = () => {
                 setGlobalData('tab',1)
 
               }}  className={`text-wrapper_1  ${payTab == 1 && 'active'}`}>
-                 免费
+                 基础
               </View>
               <View onClick={() => {
                 setPayTab(2)
                 setGlobalData('tab',2)
-              }} className={`text-wrapper_1  ${payTab == 2 && 'active'}`}>
-                  付费
+              }}  className={`text-wrapper_1  ${payTab == 2 && 'active'}`}>
+                  高端
               </View>
             </View>
           
@@ -329,7 +339,7 @@ const Home = () => {
                   <View className='iconfont iconduanjiantou-xia'></View>
                 </View> */}
 
-                {  payTab == 2 && <> 
+                {  payTab == 2 && showTab && <> 
                 <View className="inputView"     onClick={() => {
                       setPopType('fiveElement')
                       setShowPop(true)
@@ -481,23 +491,28 @@ const Home = () => {
           }}></XieYi>
         }
           <View className="weui-btn-area">
-            {!hasphone  && typeof hasphone == 'boolean' ? 
-                agree ?  <Button className="weui-btn" type="primary" open-type='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>
+            {!hasphone  && typeof hasphone == 'boolean' && 
+                agree &&  <Button className="weui-btn" type="primary" open-type='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>
                 手机号快捷登录
-              </Button> : <Button className="weui-btn" type="primary" onClick={() => {
-                  setAgreeAlert(true)
-                }}>
-                手机号快捷登录
-              </Button> :
-            (
-              <Button
+              </Button> 
+            }
+            {
+              !hasphone  && typeof hasphone == 'boolean' && !agree &&
+               <Button className="weui-btn" type="primary" onClick={() => {
+                setAgreeAlert(true)
+              }}>
+              手机号快捷登录
+            </Button> 
+            }
+
+          { hasphone  &&  <Button
                 className="weui-btn"
                 type="primary"
                 onClick={checkAgain}
               >
                 立即取名{ payTab == 1 ? '' : `（剩余${namingNum ? namingNum : 0}次）` }
               </Button>
-            )}
+          }
           </View>
           </View>
 

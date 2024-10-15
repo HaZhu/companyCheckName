@@ -63,6 +63,7 @@ export default class Mine extends Component {
     this.state = {
       menus: MENUS,
       showPay:false,
+      showTab:true,
       mobile: '',
       userNick: '',
       titleBarHeight: 48,
@@ -95,6 +96,11 @@ export default class Mine extends Component {
             mode: 'cors',
             method: 'GET'
           }).then((result) => {
+            if(result.data.data && result.data.data.hideTab){
+              _this.setState({
+                showTab: false
+              })
+            }
              if(result.data.data && result.data.data.token){
               setGlobalData('token', result.data.data.token);
               setGlobalData('userName', result.data.data.userNick);
@@ -145,7 +151,7 @@ export default class Mine extends Component {
       });
       return;
     }
-    if(item.isCount){
+    if(item.isCount && this.state.showTab){
       this.setState({
         showPay:true
       })
@@ -172,7 +178,7 @@ export default class Mine extends Component {
     };
   }
   render() {
-    const { menus, userNick,showPay } = this.state;
+    const { menus, userNick,showPay,showTab } = this.state;
     return (
       <View className='mine_wrap'>
         <View className='mine_container'>
