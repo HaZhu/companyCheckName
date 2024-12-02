@@ -1,8 +1,8 @@
 {
   "miniprogramRoot": "dist/",
   "projectname": "myApp",
-  "description": "企业起名核名",
-  "appid": "wx071875944f787b73",
+  "description": "宝宝取名",
+  "appid": "tt300d46b0af3a473001",
   "setting": {
     "urlCheck": true,
     "es6": false,

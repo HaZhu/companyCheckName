@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./",
-  "projectname": "myApp",
-  "appid": "testAppId",
+  "projectname": "宝宝取名",
+  "appid": "tt300d46b0af3a473001",
   "setting": {
     "es6": false,
     "minified": false
