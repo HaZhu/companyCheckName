@@ -37,41 +37,52 @@ const Result = () => {
             companyList.map(item => {
                 return <View className='content_wrap'>
                     <View className='componey_title'>{item.companyName}</View>
-                    <View className='content'>
-                       <Image className='imgs' src={IMG11}></Image>
-                       <View className='content_rt'>
-                          <View className='content_title'>寓意分析</View>
-                          <View className='content_text'>{item.companyMean}</View>
-                       </View>
-                    </View>
-                    <View className='content'>
+                    { 
+                     item.companyMean &&  <View className='content'>
+                        <Image className='imgs' src={IMG11}></Image>
+                        <View className='content_rt'>
+                           <View className='content_title'>寓意分析</View>
+                           <View className='content_text'>{item.companyMean}</View>
+                        </View>
+                     </View>
+                    }
+                    
+                    { 
+                     item.fiveElementAnalysis && <View className='content'>
                        <Image className='imgs' src={IMG9}></Image>
                        <View className='content_rt'>
                           <View className='content_title'>五行分析</View>
                           <View className='content_text'>{item.fiveElementAnalysis}</View>
                        </View>
                     </View>
-                    <View className='content'>
+                    }
+                    { 
+                     item.wealthAnalysis && <View className='content'>
                        <Image className='imgs' src={IMG4}></Image>
                        <View className='content_rt'>
                           <View className='content_title'>财运分析</View>
                           <View className='content_text'>{item.wealthAnalysis}</View>
                        </View>
                     </View>
-                    <View className='content'>
+                    }
+                    { 
+                     item.birthdayAnalysis && <View className='content'>
                        <Image className='imgs' src={IMG11}></Image>
                        <View className='content_rt'>
                           <View className='content_title'>生辰分析</View>
                           <View className='content_text'>{item.birthdayAnalysis}</View>
                        </View>
                     </View>
-                    <View className='content'>
+                    }
+                    { 
+                     item.constellationAnalysis && <View className='content'>
                        <Image className='imgs' src={IMG11}></Image>
                        <View className='content_rt'>
                           <View className='content_title'>星座分析</View>
                           <View className='content_text'>{item.constellationAnalysis}</View>
                        </View>
                     </View>
+                    }
                 </View>
             })
         } 

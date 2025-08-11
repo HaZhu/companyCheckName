@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import { recordList } from '@/api';
 import Taro from '@tarojs/taro';
+import { getGlobalData,setGlobalData } from '@/utils/global_data'
 // import BackIcon from '@/components/BackIcon';
 import CommonEmpty from '@/components/CommonEmpty';
 import { NO_LOG } from '@/constants/empty';
@@ -21,7 +22,7 @@ export default class ScoreToCoupon extends Component {
     };
   }
   componentDidShow() {
-    this.pageNum = 1;
+    this.pageNum = 0;
     const { statusBarHeight } = Taro.getSystemInfoSync();
     this.setState({
       barHeight: statusBarHeight
@@ -33,18 +34,20 @@ export default class ScoreToCoupon extends Component {
   }
 
   handleExchange(items) {
-    if(!items.hasDetail) return
+    if(!items.result) return
+    let _list = JSON.parse(items.result)
+    setGlobalData('companyList', _list);
     Taro.navigateTo({
-      url: `/pages/namingRecord/result/index?id=${items.recordId}`
-    });
+    url: '/pages/result/index'
+    })
   }
   getGoods() {
     return recordList({
       offset: this.pageNum,
       pageSize: 10
     }).then((res) => {
-      const records = res.data || [];
-      const lists = this.pageNum === 1 ? records : this.state.lists.concat(records);
+      const records = res.data.records || [];
+      const lists = this.pageNum === 0 ? records : this.state.lists.concat(records);
       this.setState({
         lists,
         total: res.data.total,
@@ -74,7 +77,7 @@ export default class ScoreToCoupon extends Component {
   render() {
     const { lists, titleBarHeight, barHeight } = this.state;
     return (
-  <View className='score_to_coupon' style={`background:${lists.length > 0 ? '#352C25' : '#fff'}`}>
+  <View className='score_to_coupon' style={`background:${lists.length > 0 ? '#000' : '#fff'}`}>
         <View className='lists'>
           {lists.length > 0 ? (
             lists.map((items, index) => {
@@ -88,38 +91,34 @@ export default class ScoreToCoupon extends Component {
                 >
                   <View className='flex-box benefits_item_top'>
                     <View className='flex_center'>
-                      <View className='benefits_title'>取名时间：{dayjs(items.namingTime).format('YYYY-MM-DD hh:mm:ss')}</View>
+                      <View className='benefits_title'>取名时间：{dayjs(items.created_at).format('YYYY-MM-DD hh:mm:ss')}</View>
                       <View className='benefits_short_title'>
                          {
-                          !!items.cityName &&  <Text className='text11'>所在地区：{items.cityName}  </Text>
+                          !!items.city_name &&  <Text className='text11'>所在地区：{items.city_name}  </Text>
                          }
                          {
-                          !!items.industryType &&  <Text className='text11'>行业：{items.industryType} </Text>
+                          !!items.industry_type &&  <Text className='text11'>行业：{items.industry_type} </Text>
                          }
                          {
-                          !!items.companyType &&  <Text className='text11'>公司类型：{items.companyType}</Text> 
+                          !!items.company_type &&  <Text className='text11'>公司类型：{items.company_type}</Text> 
                          }
                          {
-                          !!items.companyNameNum &&  <Text className='text11'>公司字号数量：{items.companyNameNum}</Text> 
+                          !!items.company_name_num &&  <Text className='text11'>公司字号数量：{items.company_name_num}</Text> 
                          }
                           {
-                          !!items.favoriteWord &&  <Text className='text11'>心仪的字：{items.favoriteWord}</Text> 
+                          !!items.favorite_word &&  <Text className='text11'>心仪的字：{items.favorite_word}</Text> 
                          }
                           {
-                          !!items.fiveElement &&  <Text className='text11'>五行：{items.fiveElement}</Text> 
+                          !!items.five_element &&  <Text className='text11'>五行：{items.five_element}</Text> 
                          }
                           {
-                          !!items.birthTime &&   <Text className='text11'>出生年月：{items.birthTime}</Text>
+                          !!items.birth_time &&   <Text className='text11'>出生年月：{items.birth_time}</Text>
                          }
-                          {
-                          !!items.nickName &&  <Text className='text11'>创始人姓名：{items.nickName}</Text> 
-                         }
-                        
-                         {
-                          !!items.sex && <Text className='text11'>创始人性别：{items.sex  == 1? '男' : '女'}</Text> 
-                         }
+                         {/* {
+                          !!items.sex && <Text className='text11'>创始人性别：{items.sex  == 1 && '男'} {items.sex  == 2 && '女'}</Text> 
+                         } */}
                       </View>
-                      <View className='benefits_address'>编号：{items.recordId} </View>
+                      <View className='benefits_address'>编号：{items.id} </View>
                     </View>
                   </View>
                   <View className='flex-box benefits_item_bottom'>
@@ -129,7 +128,7 @@ export default class ScoreToCoupon extends Component {
                       </View>
                     </View>
                     <View className='benefits_item_bottom_right'>
-                      <View className={`button ${items.hasDetail ? '' : 'gray'}`}> { items.hasDetail ? "去查看" : "取名中"}</View>
+                      <View className={`button`}> 查看详情</View>
                     </View>
                   </View>
                 </View>

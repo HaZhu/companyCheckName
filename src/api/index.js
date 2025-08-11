@@ -126,13 +126,7 @@ export const queryPayResult = (data) =>
     method: 'GET',
     data
   });
-// 获取手机号
-export const getPhone = (data) =>
-  request({
-    url: `/wx/user/mobile/register`,
-    method: 'POST',
-    data
-});
+
 
 // 订单支付
 export const payment = (data) =>
@@ -153,15 +147,10 @@ export const adviceSave = (data) =>
 
 
 
-export const nameDesign = (data) =>
-  request({
-    url: `/company/name/free_design`,
-    method: 'POST',
-    data
-});
+
 export const namePayDesign = (data) =>
   request({
-    url: `/company/name/paid_design`,
+    url: `/ai`,
     method: 'POST',
     data
 });
@@ -174,8 +163,8 @@ export const recordDetail = (data) =>
 });
 export const recordList = (data) =>
   request({
-    url: `/company/naming/record/list`,
-    method: 'POST',
+    url: `/history`,
+    method: 'GET',
     data
 });
 
@@ -185,22 +174,41 @@ export const itemList = (data) =>
     method: 'GET',
     data
 });
+
+export const nameDesign = (data) =>
+  request({
+    url: `/name`,
+    method: 'POST',
+    data
+});
 export const accountDetail = (data) =>
   request({
-    url: `/account/detail`,
+    url: `/naming`,
     method: 'GET',
     data
 });
 export const orderPay = (data) =>
   request({
-    url: `/order/pay`,
+    url: `/itemOrder/create`,
     method: 'POST',
     data
 });
-
+// 获取手机号
+export const getPhone = (data) =>
+  request({
+    url: `/login/getPhone`,
+    method: 'POST',
+    data
+});
 export const bannerList = (data) =>
   request({
-    url: `/banner/list`,
+    url: `/ad`,
     method: 'GET',
     data
   });
+export const login = (data) =>
+    request({
+      url: `/auth/loginByWeixin`,
+      method: 'POST',
+      data
+    });

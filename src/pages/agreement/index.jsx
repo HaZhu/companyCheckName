@@ -21,7 +21,7 @@ export default class Mine extends Component {
     switch (+type) {
       case 1:
         this.setState({
-          url: 'http://xapi.nmqm.fun/private/nmqm/privateInfo.html'
+          url: 'https://dhgj.ooeli.site/privateInfo.html'
         });
         break;
       case 2:

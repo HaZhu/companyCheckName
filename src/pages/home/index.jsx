@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Taro, { useShareTimeline,useReachBottom, useShareAppMessage, useDidShow } from '@tarojs/taro';
 import { View, Text, Input, Button, Swiper, SwiperItem, Image, Canvas, Picker} from '@tarojs/components';
-import {getPhone,nameDesign,namePayDesign, accountDetail, bannerList} from '@/api'
+import {getPhone,nameDesign,namePayDesign, accountDetail, bannerList, login} from '@/api'
 import { useGetBarHeight } from '@/hooks';
 import { getGlobalData,setGlobalData } from '@/utils/global_data'
 import { showToast,selectorQueryClientRect,getPx } from '@/utils';
@@ -23,9 +23,9 @@ const Home = () => {
   const [payTab,setPayTab]= useState(1);
   const [namingNum,setNamingNum]= useState(0);
   const [form,setForm] =  useState({
-    "cityName": "",
-    "companyType": "",
-    "industryType": "",
+    "cityName": "杭州",
+    "companyType": "有限公司",
+    "industryType": "网络科技",
     "fiveElement": "",
     "birthDate": "",
     "birthTime": "",
@@ -43,16 +43,16 @@ const Home = () => {
   const  companyNameNum = [
     2, 3, 4
   ]
+
   // const [cityName, setAreaName] = useState('杭州'); // 城市名称。如杭州,江苏,上海
   // const [industryType, setIndustryType] = useState('网络科技'); // 行业类型 如:网络技术,网络科技
   // const [companyType, setCompanyType] = useState('有限公司'); //公司类型 如:有限公司,合资公司
   // const [fiveElement, setFfiveElement] = useState('缺金'); // 五行。如:缺金、木
   // const [sex, setSex] = useState(1); // 性别。1-男，2-女
   // const [birthTime, setBirthTime] = useState('1998年12月1日丑时12点'); // 出生年月日。如：1998年12月1日丑时12点
-
   // const [companyNameNum, setCompanyNameNum] = useState(1); //公司字号数量
   // const [favoriteWord, setFavoriteWord] = useState('水'); // 喜欢的字
-  // const [nickName, setNickName] = useState('王帅'); // 	姓名
+  // const [nickName, setNickName] = useState('王帅'); // 姓名
   
   const [showPop,setShowPop]= useState(false);
   const [popType,setPopType] = useState('')
@@ -94,18 +94,22 @@ const Home = () => {
         success: function (res) {
           if (res.code) {
             getPhone({
-               getMobileCode: code,
-               miniAppLoginCode: res.code
+              encryptedData,
+              iv,
+               code: res.code
             }).then((result) => {
-              if(result.hideTab){
+              if (result.errno != 0) {
+                showToast(result.errmsg || '获取手机号失败');
+                return; 
+              }
+              if(result.data.hideTab){
                 setShowTab(false)
               }
               if(result.data && result.data && result.data.token){
                 setGlobalData('token', result.data.token);
-                setGlobalData('userName', result.data.userNick);
+                setGlobalData('userName', result.data.userInfo.nickname);
                 setHasphone(true)
                 setAgreeAlert(false)
-                checkAgain()
               }
             });
           } else {
@@ -114,34 +118,40 @@ const Home = () => {
         }
       });
   }
-  const getNum = async () => {
-    const res = await accountDetail()
-    setNamingNum(res.data.namingNum)
-  }
+  // const getNum = async () => {
+  //   const res = await accountDetail()
+  //   setNamingNum(res.data)
+  // }
   const checkAgain = async () => {
     if(!form.cityName || !form.industryType || !form.companyType){
       showToast('城市、行业类型、公司类型三个必填')
       return
     }
-    if(payTab == 1 || !showTab){
+    Taro.showLoading({
+      title: '取名中,请稍等...',
+      mask: true
+    });
+    if(payTab == 1){
 
      const res = await  nameDesign({
         "cityName": form.cityName,
         "companyType": form.companyType,
         "industryType": form.industryType
       })
+      Taro.hideLoading();
       setGlobalData('companyList',res.data);
       Taro.navigateTo({
         url: '/pages/result/index'
       })
     }else{
-      const res = await accountDetail()
-      if(!res.data.namingNum){
-        showToast('可使用次数不足')
-        setShowPay(true)
-        return
-      }
-      namePayDesign({
+      // const res = await accountDetail()
+      // if(!res.data){
+      //   showToast('可使用次数不足')
+      //   setShowPay(true)
+      //   return
+      // }
+      
+      const res = await  namePayDesign({
         "cityName": form.cityName,
         "companyType": form.companyType,
         "industryType": form.industryType,
@@ -152,11 +162,16 @@ const Home = () => {
         // "nickName": form.nickName,
         "sex": form.sex == '女' ? 2 : 1
       })
-      setShowLoading(true)
-      setTimeout(() => {
-          getNum()
-          setShowLoading(false)
-      }, 2000);
+      Taro.hideLoading();
+      setGlobalData('companyList',res.data);
+      Taro.navigateTo({
+        url: '/pages/result/index'
+      })
+      // setShowLoading(true)
+      // setTimeout(() => {
+      //     getNum()
+      //     setShowLoading(false)
+      // }, 2000);
     }
   }
   const handleChangeFormData = (value, type) => {
@@ -182,36 +197,29 @@ const Home = () => {
   }
   const getBannerList = async() => {
      const res = await bannerList();
-     setBanners(res.data)
+     setBanners(res.data.data)
   }
   useEffect(() => {
     Taro.login({
       success: function (r) {
         if (r.code) {
-          Taro.request({
-            url: `https://xapi.nmqm.fun/api/check-company/wx/user/login`,
-            data: {
-              code: r.code
-            },
-            header: {
-              'Content-Type': 'application/json',
-              locale: 'zh_CN'
-            },
-            mode: 'cors',
-            method: 'GET'
+          login({
+            code: r.code
           }).then( async (result) => {
-              if(result.data.data && result.data.data.hideTab){
-                setShowTab(false)
-              }
-             if(result.data.data && result.data.data.token){
-              setGlobalData('token', result.data.data.token);
-              setGlobalData('userName', result.data.data.userNick);
-              setHasphone(true)
-              getNum()
-             }else{
+            if (result.errno != 0) {
               setHasphone(false)
-             }
-          });
+              return
+            }
+            if(result?.data?.hideTab){
+              setShowTab(false)
+            }
+           if(result?.data.token){
+            setGlobalData('token', result.data.token);
+            setGlobalData('userName', result.data.userInfo.nickname);
+            setHasphone(true)
+            // getNum()
+           }
+        });
         } else {
           console.log('登录失败！');
         }
@@ -222,9 +230,9 @@ const Home = () => {
   },[])
   const { barHeight, titleBarHeight } = useGetBarHeight();
   useDidShow(() => {
-    if(getGlobalData('token')){
-      getNum()
-    }
+    // if(getGlobalData('token')){
+    //   getNum()
+    // }
     if(getGlobalData('tab') == 2){
       setPayTab(2)
     }
@@ -262,7 +270,7 @@ const Home = () => {
                   <Image
                     className="banner_img"
                     mode='aspectFill'
-                    src={item.picUrl}
+                    src={item.image_url}
                   ></Image>
                 </SwiperItem>
               );
@@ -278,6 +286,10 @@ const Home = () => {
                  基础
               </View>
               <View onClick={() => {
+                if(!showTab){
+                  showToast('高级功能暂未开放');
+                  return 
+                }
                 setPayTab(2)
                 setGlobalData('tab',2)
               }}  className={`text-wrapper_1  ${payTab == 2 && 'active'}`}>
@@ -409,8 +421,8 @@ const Home = () => {
                   <Input
                     className='input'
                     value={form.favoriteWord}
-                    maxlength={1}
-                    placeholder='心仪的汉字'
+                    maxlength={2}
+                    placeholder='心仪的汉字（1）'
                     onInput={(e) => {
                       handleChangeFormData(e.detail.value, 'favoriteWord');
                     }}
@@ -510,7 +522,8 @@ const Home = () => {
                 type="primary"
                 onClick={checkAgain}
               >
-                立即取名{ payTab == 1 ? '' : `（剩余${namingNum ? namingNum : 0}次）` }
+                立即取名
+                {/* { payTab == 1 ? '' : `（剩余${namingNum ? namingNum : 0}次）` } */}
               </Button>
           }
           </View>
@@ -536,7 +549,7 @@ const Home = () => {
           showPay && <HomePay onClose={() => {
             setShowPay(false)
           }} onPayClose={() => {
-            getNum()
+            // getNum()
             setShowPay(false)
           }}></HomePay>
         }

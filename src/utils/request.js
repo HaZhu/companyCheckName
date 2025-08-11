@@ -1,9 +1,11 @@
 import Taro, { getStorageSync } from '@tarojs/taro';
 import { setLoginReturnUrl } from '@/utils';
+import {login} from '@/api'
 import qs from 'qs';
 import { getGlobalData,setGlobalData } from '@/utils/global_data'
 
-let baseUrl = 'https://xapi.nmqm.fun/api/check-company';
+// let baseUrl = 'http://127.0.0.1:8360/api';
+let baseUrl = 'https://haoyun.ooeli.site/api';
 // if (process.env.ENV === 'test' || process.env.ENV === 'development') {
 //   baseUrl = 'http://120.26.199.121:9206/api/check-company';
 // }
@@ -16,7 +18,7 @@ const request = (options = { method: 'GET', data: {}, contentType: 'application/
   };
   let headers = {
     'Content-Type': options.contentType || 'application/json',
-    token: getGlobalData('token') ,
+    'x-token': getGlobalData('token') ,
     locale: 'zh_CN'
   };
   return new Promise((resolve, reject) => {
@@ -65,54 +67,47 @@ const updateToken = () => {
   Taro.login({
     success: function (r) {
       if (r.code) {
-        Taro.request({
-          url: baseUrl + `/wx/user/login`,
-          data: {
-            code: r.code
-          },
-          header: {
-            'Content-Type': 'application/json',
-            token: getGlobalData('token'),
-            locale: 'zh_CN'
-          },
-          mode: 'cors',
-          method: 'POST'
-        }).then((result) => {
-          if (result.data.code == 200) {
-            if (result.data.data.token) {
-              setGlobalData('token', result.data.data.token);
-              setGlobalData('userName', result.data.data.userNick);
-              isRefreshing = true;
-              pendings.map((callback) => {
-                callback();
+        login({
+          code: r.code
+        }).then( async (result) => {
+          if (result.errno != 0) {
+            setHasphone(false)
+            return
+          }
+          if (result.data.data.token) {
+            setGlobalData('token', result.data.token);
+            setGlobalData('userName', result.data.userInfo.nickname);
+            isRefreshing = true;
+            pendings.map((callback) => {
+              callback();
+            });
+          } else {
+            const ROUTER = Taro.getCurrentInstance().router;
+            if (!noLoginPage.includes(ROUTER.path)) {
+              Taro.showModal({
+                title: '温馨提示',
+                content: '前往授权获取更好体验',
+                success: function (res) {
+                  if (res.confirm) {
+                    isRefreshing = true;
+                    pendings = [];
+                    setLoginReturnUrl();
+                    Taro.navigateTo({
+                      url: '/pages/quickLogin/index'
+                    });
+                  } else {
+                    isRefreshing = true;
+                    pendings = [];
+                  }
+                }
               });
             } else {
-              const ROUTER = Taro.getCurrentInstance().router;
-              if (!noLoginPage.includes(ROUTER.path)) {
-                Taro.showModal({
-                  title: '温馨提示',
-                  content: '前往授权获取更好体验',
-                  success: function (res) {
-                    if (res.confirm) {
-                      isRefreshing = true;
-                      pendings = [];
-                      setLoginReturnUrl();
-                      Taro.navigateTo({
-                        url: '/pages/quickLogin/index'
-                      });
-                    } else {
-                      isRefreshing = true;
-                      pendings = [];
-                    }
-                  }
-                });
-              } else {
-                isRefreshing = true;
-                pendings = [];
-              }
+              isRefreshing = true;
+              pendings = [];
             }
           }
-        });
+      })
+        
       } else {
         console.log('登录失败！');
       }

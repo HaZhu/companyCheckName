@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import Arrow from '@/assets/arrowRight.png';
-import { accountDetail } from '@/api';
+import { accountDetail, login } from '@/api';
 import { getGlobalData,setGlobalData } from '@/utils/global_data'
 import { setLoginReturnUrl,  ShareIcon } from '@/utils/index';
 import HomePay from '@/components/HomePay'
@@ -16,25 +16,32 @@ import IMG2 from '@/imgs/2.png';
 import './index.less';
 
 const MENUS = [
-  {
-    path: '/pages/order/index',
-    icon: IMG8,
-    text: '我的订单',
-    isCount: false
-  },
-  {
-    path: '',
-    icon: IMG7,
-    text: '剩余次数',
-    countNum: 0,
-    isCount: true
-  },
+  // {
+  //   path: '/pages/order/index',
+  //   icon: IMG8,
+  //   text: '我的订单',
+  //   isCount: false
+  // },
+  // {
+  //   path: '',
+  //   icon: IMG7,
+  //   text: '剩余次数',
+  //   countNum: 0,
+  //   isCount: true
+  // },
   {
     path: '/pages/namingRecord/index',
     icon: IMG3,
     text: '取名记录',
     isCount: false
-  }
+  },
+  {
+    path: '/pages/kefu/index',
+    icon: IMG8,
+    text: '企业注册，联系客服',
+    isCount: true
+  },
+  
 ];
 const getTimeState = () => {
   // 获取当前时间
@@ -84,32 +91,16 @@ export default class Mine extends Component {
     Taro.login({
       success: function (r) {
         if (r.code) {
-          Taro.request({
-            url: `https://xapi.nmqm.fun/api/check-company/wx/user/login`,
-            data: {
-              code: r.code
-            },
-            header: {
-              'Content-Type': 'application/json',
-              locale: 'zh_CN'
-            },
-            mode: 'cors',
-            method: 'GET'
-          }).then((result) => {
-            if(result.data.data && result.data.data.hideTab){
-              _this.setState({
-                showTab: false
-              })
-            }
-             if(result.data.data && result.data.data.token){
-              setGlobalData('token', result.data.data.token);
-              setGlobalData('userName', result.data.data.userNick);
-              _this.setState({
-                userNick: result.data.data.userNick
-              })
-              _this.getCount()
-             }
-          });
+          login({
+            code: r.code
+          }).then( async (result) => {
+           if(result?.data.token){
+            _this.setState({
+              userNick: result.data.userInfo.nickname,
+              mobile: result.data.mobile
+            });
+           }
+        });
         } else {
           console.log('登录失败！');
         }
@@ -117,22 +108,22 @@ export default class Mine extends Component {
     });
   }
   getCount =  async() => {
-    const res = await accountDetail()
+    // const res = await accountDetail()
     this.setState({
       menus: [
-        {
-          path: '/pages/order/index',
-          icon: IMG8,
-          text: '我的订单',
-          isCount: false
-        },
-        {
-          path: '',
-          icon: IMG7,
-          text: '剩余次数',
-          countNum: res.data.namingNum,
-          isCount: true
-        },
+        // {
+        //   path: '/pages/order/index',
+        //   icon: IMG8,
+        //   text: '我的订单',
+        //   isCount: false
+        // },
+        // {
+        //   path: '',
+        //   icon: IMG7,
+        //   text: '剩余次数',
+        //   countNum: res.data.namingNum,
+        //   isCount: true
+        // },
         {
           path: '/pages/namingRecord/index',
           icon: IMG3,
@@ -143,7 +134,7 @@ export default class Mine extends Component {
     })
   }
   handleClickMenu = (item) => {
-    if (!getGlobalData('userName')) {
+    if (!this.state.mobile) {
       // 获取一下当前页面路径及参数
       setLoginReturnUrl(item);
       Taro.navigateTo({
@@ -151,10 +142,10 @@ export default class Mine extends Component {
       });
       return;
     }
-    if(item.isCount && this.state.showTab){
-      this.setState({
-        showPay:true
-      })
+    if(item.isCount){
+      Taro.makePhoneCall({
+        phoneNumber: 18250476269
+      });
       return
     }
     if (item.path) {
@@ -178,7 +169,7 @@ export default class Mine extends Component {
     };
   }
   render() {
-    const { menus, userNick,showPay,showTab } = this.state;
+    const { menus, userNick,showPay,mobile } = this.state;
     return (
       <View className='mine_wrap'>
         <View className='mine_container'>
@@ -187,7 +178,7 @@ export default class Mine extends Component {
             <View className='imgs_rt'>
                 <View className='user_info_title' onClick={() => {
                     this.handleClickMenu({});
-                  }}>{ userNick ?  getTimeState() : '点击登录'}</View>
+                  }}>{ mobile ?  mobile : '点击登录'}</View>
                 <View
                   className='user_name'
                 >
@@ -204,9 +195,7 @@ export default class Mine extends Component {
                     {item.text}
                   </View>
                   <View className='menu_right'>
-                    {
-                      item.isCount ? <View className='countNum'>{item.countNum}次</View> : <View className='iconfont iconduanjiantou-you arrow'></View>
-                    }
+                      <View className='iconfont iconduanjiantou-you arrow'></View>
                   </View>
                 </View>
               );
@@ -230,7 +219,7 @@ export default class Mine extends Component {
               showPay:false
             })
           }} onPayClose={() => {
-            this.getCount()
+            // this.getCount()
             this.setState({
               showPay:false
             })

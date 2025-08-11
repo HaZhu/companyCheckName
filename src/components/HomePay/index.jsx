@@ -18,9 +18,7 @@ const HomeAd = ({ onClose, onPayClose }) => {
   }
   const handlePay = async () => {
      const res = await orderPay({
-      "itemId": priceItem.id,
-      "namingNum":  priceItem.namingNum,
-      "orderAmount":  priceItem.item_amount
+      "id": priceItem.id
      });
      const payParams = {
       appId: res?.data?.wxPayMpOrderResult.appId,
@@ -55,8 +53,8 @@ const HomeAd = ({ onClose, onPayClose }) => {
               return    <View className={`pay_item ${item.id == priceItem.id  && 'active' }`} onClick={() => {
                 setPriceItem(item)
               }}>
-                  <View className='pay_item_lf'>{item.name}</View>
-                  <View className='pay_item_rt'>可免费{item.namingNum}次</View>
+                  <View className='pay_item_lf'>{item.title}</View>
+                  <View className='pay_item_rt'>{item.description}</View>
               </View>
             })
           }

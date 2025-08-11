@@ -31,9 +31,9 @@ export default {
   },
   tabBar: {
     borderStyle: 'white',
-    color: '#92867D',
-    selectedColor: '#F6B959',
-    backgroundColor: '#3A3634',
+    color: '#000',
+    selectedColor: '#F53F3F',
+    backgroundColor: '#FFF',
     list: [
       {
         pagePath: 'pages/home/index',
